@@ -43,7 +43,7 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x00</td><td>V_SET_ADDRESS</td><td colspan="2">Register Address</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
 <tr><td>0x01</td><td>V_SET_GROUP</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> If an expansion group is not defined, this function returns immediately.</td></tr>
 <tr><td>0x02</td><td>V_RESET_GROUP</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> If an expansion group is not defined, this function returns immediately.</td></tr>
-<tr><td>0x03</td><td>V_WRITE_VREG</td><td>Data to write</td><td>Register destination</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
+<tr><td>0x03</td><td>V_WRITE_VREG</td><td>Data to write</td><td>VDP Register destination</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
 <tr><td>0x04</td><td>V_FILL_VRAM</td><td colspan="2"> Size of memory to fill</td><td> - </td><td>byte to fill memory with.</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x05</td><td>V_WRITE_DATA</td><td colspan="2"> Size of memory</td><td colspan="2">Pointer to data buffer.</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x06</td><td>V_FILL_SEQ</td><td colspan="2"> Size of memory to fill</td><td colspan="2">(R8 is used internally to fill memory)</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function. Memory will be filled with sequential bytes from 00 to FF, repeated as necessary.</td></tr>
@@ -54,10 +54,19 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
 </table>
 
+TMS9X18 Video Driver API Notes
+------------------------------
+* Be sure to set the Expansion Group before using any VDP functions and to reset the Expansion Group back to default before returning to the Elf/OS.
+* For most data functions set the VDP Address using the V_SET_ADDRESS function.
+* R7 is generally used for the VDP Address, Memory Size or Register data.
+* R8.0 is generally used for a data byte to write.  R8 is used internally for V_FILL_SEQ.
+* R9 is used internally by the V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
+* The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location once with SET_ADDRESS and use one of the other functions to write or fill memory.
+
 Repository Contents
 -------------------
 * **/src/**  -- Source files for assembling the TMS9X18 Video Driver.
-  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm tms9x18.asm* to assemble the tms9x18.asm file.
+  * asm.bat - Windows batch file to assemble source file with Asm/02 to create binary file. Use the command *asm tms9x18.asm* to assemble the tms9x18.asm file.  Replace *[YOUR_PATH]* with the path to the Asm/02 directory.
   * tms9x18.asm - Demo to blank the display.
 * **/src/include/**  -- Included source files for Elf/OS TMS9X18 Video Driver.
   * ops.inc - Opcode definitions for Asm/02.
