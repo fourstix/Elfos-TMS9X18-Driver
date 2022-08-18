@@ -3,7 +3,7 @@ TMS9X18 Video Display Processor driver for Elf/OS is an Elf/OS program for the [
 
 Platform  
 --------
-These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  A lot of information and software for the 1802-Mini can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.  The driver should also run with a Pico/Elf v2 and a TMS9118/9918 Color Board, but this configuration has not been tested yet.  In order to run properly, the driver source file tms9x18.asm should be assembled with the proper Port and Group settings to match the hardware platform.
+These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  A lot of information and software for the 1802-Mini can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.  The driver should also run with a Pico/Elf v2 and a TMS9118/9918 Color Board, but this configuration has not been tested yet.  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform.
 
 Examples
 ----------
@@ -14,13 +14,34 @@ This command will load the tms9x18 video driver into the Elf/OS high memory and 
 The option -u will unload the driver from high memory, return the memory block to the heap and unregister the driver from the Elf/OS kernel.
 
 ## tms9x18 -?
-Any other option besided *-u* will show a help message.
+Any other option besides *-u* will show a help message.
 
 
 TMS9X18 Video Driver API
 ------------------------
+<table>
+<tr><th>Number</th><th>VDP.inc Token</th><th colspan="2">Description</th></tr>
+<tr><td>0x00</td><td>V_SET_ADDRESS</td><td colspan="2">Set the VDP register Address.</td></tr>
+<tr><td>0x01</td><td>V_SET_GROUP</td><td colspan="2">Set the Expansion Group to the video card expansion group.</td></tr>
+<tr><td>0x02</td><td>V_RESET_GROUP</td><td colspan="2">Reset the Expansion Group to the system default.</td></tr>
+<tr><td>0x03</td><td>V_WRITE_VREG</td><td colspan="2">Write a data value to a VDP register</td></tr>
+<tr><td>0x04</td><td>V_FILL_VRAM</td><td colspan="2">Fill the VDP memory with a particular data value.</td></tr>
+<tr><td>0x05</td><td>V_WRITE_DATA</td><td colspan="2">Write a data buffer to the VDP memory.</td></tr>
+<tr><td>0x06</td><td>V_FILL_SEQ</td><td colspan="2">Fill the VDP memory with sequential byte values 00 to FF, repeated as needed.</td></tr>
+<tr><td>0x07</td><td>V_WRITE_BYTE</td><td colspan="2">Write a single byte value to the VDP memory</td></tr>
+<tr><td>0x08</td><td>V_READ_STATUS</td><td colspan="2">Read VDP status byte</td></tr>
+<tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">>Write a data buffer encoded in the Sun RLE format to the VDP memory.</td></tr>
+<tr><td>0x0a</td><td>V_READ_BYTE</td><td colspan="2">Read data byte from a given VDP address.</td></tr>
+<tr><td>0x0b</td><td>V_SEND_BYTE</td><td colspan="2">Send a data byte to a given VDP address.</td></tr>
+</table>
 
-
+TMS9X18 Video Driver API Parameters
+-----------------------------------
+<table>
+<tr><th rowspan="2">Number</th><th rowspan="2">VDP.inc Token</th><th colspan="2">R7</th><th colspan="2">R8</th><th rowspan="2" colspan="2">Note</th></tr>
+<tr><th>R7.1</th><th>R7.0</th><th>R8.1</th><th>R8.0</th></tr>
+<tr><td>0x00</td><td>V_SET_ADDRESS</td><td colspan="2">Register Address</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
+</table>
 Repository Contents
 -------------------
 * **/src/**  -- Source files for assembling the TMS9X18 Video Driver.
