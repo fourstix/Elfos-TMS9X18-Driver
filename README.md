@@ -58,10 +58,10 @@ TMS9X18 Video Driver API Notes
 ------------------------------
 * Be sure to set the Expansion Group before using any VDP functions and to reset the Expansion Group back to default before returning to the Elf/OS.
 * For most data functions set the VDP Address using the V_SET_ADDRESS function.
-* R7 is generally used for the VDP Address, Memory Size or Register data.
-* R8 is generally used for the data buffer, and R8.0 is used for a data byte to write.  R8 is used internally for V_FILL_SEQ.
-* R9 is used internally by the V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
-* The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location once with SET_ADDRESS and use one of the other functions to write or fill memory.
+* R7 is used for the VDP Address, Memory Size or Register data.
+* R8 is used for the data buffer pointer, and R8.0 is used for a single data byte to write.  R8 is used internally by V_FILL_SEQ.
+* R9 is used internally by V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
+* The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location one time with SET_ADDRESS and use one of the other functions to write or fill memory repeatedly.
 
 Repository Contents
 -------------------
