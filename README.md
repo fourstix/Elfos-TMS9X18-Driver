@@ -30,9 +30,9 @@ TMS9X18 Video Driver API
 <tr><td>0x06</td><td>V_FILL_SEQ</td><td colspan="2">Fill the VDP memory with sequential byte values 00 to FF, repeated as needed.</td></tr>
 <tr><td>0x07</td><td>V_WRITE_BYTE</td><td colspan="2">Write a single byte value to the VDP memory</td></tr>
 <tr><td>0x08</td><td>V_READ_STATUS</td><td colspan="2">Read VDP status byte</td></tr>
-<tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">>Write a data buffer encoded in the Sun RLE format to the VDP memory.</td></tr>
-<tr><td>0x0a</td><td>V_READ_BYTE</td><td colspan="2">Read data byte from a given VDP address.</td></tr>
-<tr><td>0x0b</td><td>V_SEND_BYTE</td><td colspan="2">Send a data byte to a given VDP address.</td></tr>
+<tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Write a data buffer encoded in the Sun RLE format to the VDP memory.</td></tr>
+<tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">Get a data byte from a given VDP address.</td></tr>
+<tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">Set a data byte at a given VDP address.</td></tr>
 </table>
 
 TMS9X18 Video Driver API Parameters
@@ -41,7 +41,19 @@ TMS9X18 Video Driver API Parameters
 <tr><th rowspan="2">Number</th><th rowspan="2">VDP.inc Token</th><th colspan="2">R7</th><th colspan="2">R8</th><th rowspan="2" colspan="2">Note</th></tr>
 <tr><th>R7.1</th><th>R7.0</th><th>R8.1</th><th>R8.0</th></tr>
 <tr><td>0x00</td><td>V_SET_ADDRESS</td><td colspan="2">Register Address</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
+<tr><td>0x01</td><td>V_SET_GROUP</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> If an expansion group is not defined, this function returns immediately. </td></tr>
+<tr><td>0x02</td><td>V_RESET_GROUP</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> If an expansion group is not defined, this function returns immediately. </td></tr>
+<tr><td>0x03</td><td>V_WRITE_VREG</td><td>Data to write</td><td>Register destination</td><td colspan="2"> - </td><td colspan="2"> - </td></tr>
+<tr><td>0x04</td><td>V_FILL_VRAM</td><td colspan="2"> Size of memory to fill</td><td> - </td><td>byte to fill memory with.</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
+<tr><td>0x05</td><td>V_WRITE_DATA</td><td colspan="2"> Size of memory</td><td colspan="2">Pointer to data buffer.</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
+<tr><td>0x06</td><td>V_FILL_SEQ</td><td colspan="2"> Size of memory to fill</td><td colspan="2">(R8 is used internally to fill memory)</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function. Memory will be filled with sequential bytes from 00 to FF, repeated as necessary.</td></tr>
+<tr><td>0x07</td><td>V_WRITE_BYTE</td><td colspan="2"> -</td><td>-</td><td>data byte to write</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
+<tr><td>0x07</td><td>V_READ_STATUS</td><td colspan="2"> - </td><td colspan="2">-</td><td colspan="2">The VDP status byte is returned in D.</td></tr>
+<tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Size of memory</td><td colspan="2">Pointer to data buffer encoded in the Sun RLE format.</td><td colspan="2">Set the memory address using V_SET_ADDRESS before calling this function. R9 is used internally for the repeated data byte count.</td></tr>
+<tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">VDP Address</td><td colspan="2">-</td><td colspan="2">The data byte read from VDP memory address is returned in D.</td></tr>
+<tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
 </table>
+
 Repository Contents
 -------------------
 * **/src/**  -- Source files for assembling the TMS9X18 Video Driver.
@@ -52,6 +64,7 @@ Repository Contents
   * bios.inc - Bios definitions from Elf/OS
   * kernel.inc - Kernel definitions from Elf/OS
   * tms9x18.inc - Video card configuration constants.  The constants in this file *must* match the video card hardware configuration.  
+  * vdp.inc - API constants and useful VDP constants to be used by programs calling the driver.
 * **/bin/**  -- Binary files for TMS9X18 video driver.
   * tms9x18_167.bin - Video driver assembled for a 1802-Mini TMS9x18 video card set to Expansion Group 1, Data Port 6 and Register Port 7.
   * tms9x18_N15.bin - Video driver assembled for a TMS9x18 video card set to Data Port 1, Register Port 5 and no expansion card group in use.
