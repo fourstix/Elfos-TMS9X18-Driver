@@ -3,7 +3,7 @@ TMS9X18 Video Display Processor driver for Elf/OS is an Elf/OS program for the [
 
 Platform  
 --------
-These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  A lot of information and software for the 1802-Mini can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.  The driver should also run with a Pico/Elf v2 and a TMS9118/9918 Color Board, but this configuration has not been tested yet.  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform.
+These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  The driver should also run with a Pico/Elf v2 and a TMS9118/9918 Color Board, but this configuration has not been tested yet.  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform. A lot of information and software for the 1802-Mini and Pico/Elf v2 can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 Examples
 ----------
@@ -14,7 +14,7 @@ This command will load the tms9x18 video driver into the Elf/OS high memory and 
 The option -u will unload the driver from high memory, return the memory block to the heap and unregister the driver from the Elf/OS kernel.
 
 ## tms9x18 -?
-Any other option besides *-u* will show a help message.
+Any other option besides *-u* will show a help message with usage information.
 
 
 TMS9X18 Video Driver API
@@ -79,8 +79,6 @@ Repository Contents
   * tms9x18_N15.bin - Video driver assembled for a TMS9x18 video card set to Data Port 1, Register Port 5 and no expansion card group in use.
   
 
-
-
 License Information
 -------------------
 
@@ -95,13 +93,13 @@ Other company, product, or services names may be trademarks or services marks of
 All libraries used in this code are copyright their respective authors.
 
 The 1802-Mini Hardware
-Copyright (c) 2021-2022 by David Madole
+Copyright (c) 2022-2022 by David Madole
 
 The Pico/Elf v2 1802 microcomputer hardware and software
-Copyright (c) 2004-2021 by Mike Riley.
+Copyright (c) 2004-2022 by Mike Riley.
 
 Elf/OS and RcAsm Software
-Copyright (c) 2004-2021 by Mike Riley.
+Copyright (c) 2004-2022 by Mike Riley.
 
 Many thanks to the original authors for making their designs and code available as open source.
 

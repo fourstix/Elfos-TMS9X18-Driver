@@ -154,9 +154,9 @@ BEGIN_DRIVER: bz SET_ADDR       ; 0 = Select VDP Address
               smi 01h
               bz WRITE_RLE      ; 9 - Write Sun RLE data to memory
               smi 01h
-              bz READ_BYTE      ; 10 = Read data byte at address
+              bz GET_BYTE       ; 10 = Get data byte from a VDP address
               smi 01h
-              bz SEND_BYTE      ; 11 = Send data byte to address
+              bz SET_BYTE       ; 11 = Set data byte ata a VDP address
               rtn           
 
 ; -------------------------------------------------------------------
@@ -335,13 +335,13 @@ CHK_CNT:      dec  r7
               rtn
 
 ; -----------------------------------------------------------
-;           Read VDP data byte from an address
+;           Get VDP data byte from an address
 ; Inputs:
 ;   r7 - Address 
 ; Outputs:
 ;   D - VDP data byte read from address
 ; -----------------------------------------------------------
-READ_BYTE:  glo  r7          ; r7 has address data
+GET_BYTE:  glo  r7          ; r7 has address data
             str  r2
             out  VDP_REG_P   ; send low byte of address
             dec  r2
@@ -359,7 +359,7 @@ READ_BYTE:  glo  r7          ; r7 has address data
 ;   R7   - address  
 ;   R8.0 - byte to write to memory 
 ; -----------------------------------------------------------
-SEND_BYTE:  glo  r7          ; r7 has address data
+SET_BYTE:   glo  r7          ; r7 has address data
             str  r2
             out  VDP_REG_P   ; send low byte of address
             dec  r2
