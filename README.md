@@ -3,7 +3,65 @@ TMS9X18 Video Display Processor driver for Elf/OS is an Elf/OS program for the [
 
 Platform  
 --------
-These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  The driver should also run with a Pico/Elf v2 and a TMS9118/9918 Color Board, but this configuration has not been tested yet.  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform. A lot of information and software for the 1802-Mini and Pico/Elf v2 can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  The driver will also run with a [Pico/Elf v2](http://www.elf-emulation.com/hardware.html) and the [TMS9118/9918 Color Board](http://www.elf-emulation.com/hardware.html).  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform. Two versions of the driver are available as binaries to match the configurations listed below.  A lot of information and software for the 1802-Mini and Pico/Elf v2 can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+
+1802-2 Mini Configuration  
+-------------------------
+The expansion group is defined in tms9x18.inc when the code is assembled by the EXT_PORT define statement. The binary file tms9x18_167.bin is assembled to match this platform configuration.
+
+Card Groups and Ports
+-------------------------
+<table>
+<tr><th>Group</th><th>Ports</th><th>Card</th></tr>
+<tr><td rowspan = "2">ALL</td><td>1</td><td>Expander</td></tr>
+<tr><td>4</td><td>Front Panel</td></tr>
+<tr><td rowspan = "3">00</td><td>2,3</td><td>Disk</td></tr>
+<tr><td>5</td><td>Clock</td></tr>
+<tr><td>6,7</td><td>UART</td></tr>
+<tr><td>01</td><td>6,7</td><td>Video</td></tr>
+</table>
+
+External Flags
+-------------------------
+<table>
+<tr><th>Flag</th><th>Card</th><th>Function</th></tr>
+<tr><td>/EF1</td><td>Video</td><td>VDP Interrupt</td></tr>
+<tr><td>/EF2</td><td>Processor</td><td>Software IO</td></tr>
+<tr><td>/EF3</td><td>(none)</td><td>(unassigned)</td></tr>
+<tr><td>/EF4</td><td>Front Panel</td><td>Input Button</td></tr>
+</table>
+
+The assembled version of this driver is named tms9x18_167.bin. (1 = Group 1, port 6 and port 7.)
+
+Pico/Elf v2 Configuration  
+-------------------------
+There is no expansion card in this Pico/Elf v2 Configuration, so there is no expansion group defined in tms9x18.inc when the code is assembled. (The EXT_PORT define statement is commented out.) The binary file tms9x18_N15.bin is assembled to match this platform configuration.
+
+Ports
+------
+<table>
+<tr><th>Group</th><th>Ports</th><th>Function</th></tr>
+<tr><td rowspan="5"><td>1</td><td>Video Card</td></tr>
+<tr>00</td><td>2,3</td><td>Disk</td></tr>
+<tr><td>4</td><td>Data IO</td></tr>
+<tr><td>5</td><td>Video Card</td></tr>
+<tr><td>6,7</td><td>UART</td></tr>
+</table>
+
+External Flags
+---------------
+<table>
+<tr><th>Flag</th><th>Function</th></tr>
+<tr><td>/EF1</td><td>VDP Interrupt</td></tr>
+<tr><td>/EF2</td><td>Software IO</td></tr>
+<tr><td>/EF3</td><td>(unassigned)</td></tr>
+<tr><td>/EF4</td><td>Input Button</td></tr>
+</table>
+
+The assembled version of this driver is named vdp_video_N15.bin. (N = No group, port 1 and port 5.)
+
+If your configuration is different from the above, edit the tms9x18.inc file and 
+change the constants to match your configuration.  Then re-assemble the code with the updated tms9x18.inc file.
 
 Examples
 ----------
