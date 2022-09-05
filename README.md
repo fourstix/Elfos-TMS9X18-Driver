@@ -49,8 +49,8 @@ Ports
 <tr><td>3</td></tr>
 <tr><td>4</td><td>Data IO</td></tr>
 <tr><td>5</td><td>Video Card Register</td></tr>
-<tr><td>6</td><td>RTC/NVR/UART</td></tr>
-<tr><td>7</td><td>RTC/NVR/UART</td></tr>
+<tr><td>6</td><td rowspan="2">RTC/NVR/UART</td></tr>
+<tr><td>7</td></tr>
 </table>
 
 External Flags
