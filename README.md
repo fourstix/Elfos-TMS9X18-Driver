@@ -41,7 +41,7 @@ Ports
 ------
 <table>
 <tr><th>Group</th><th>Ports</th><th>Function</th></tr>
-<tr><td rowspan="5"><td>(None)</td><td>1</td><td>Video Card Data</td></tr>
+<tr><td rowspan="5">(None)</td><td>1</td><td>Video Card Data</td></tr>
 <tr><td>2,3</td><td>Disk</td></tr>
 <tr><td>4</td><td>Data IO</td></tr>
 <tr><td>5</td><td>Video Card Register/Address</td></tr>
