@@ -18,7 +18,7 @@ Card Groups and Ports
 <tr><td rowspan = "3">00</td><td>2,3</td><td>Disk</td></tr>
 <tr><td>5</td><td>Clock</td></tr>
 <tr><td>6,7</td><td>UART</td></tr>
-<tr><td>01</td><td>6,7</td><td>Video</td></tr>
+<tr><td>01</td><td>6,7</td><td>Video Card</td></tr>
 </table>
 
 External Flags
@@ -41,10 +41,10 @@ Ports
 ------
 <table>
 <tr><th>Group</th><th>Ports</th><th>Function</th></tr>
-<tr><td rowspan="5"><td>1</td><td>Video Card</td></tr>
-<tr>00</td><td>2,3</td><td>Disk</td></tr>
+<tr><td rowspan="5"><td>(None)</td><td>1</td><td>Video Card Data</td></tr>
+<tr><td>2,3</td><td>Disk</td></tr>
 <tr><td>4</td><td>Data IO</td></tr>
-<tr><td>5</td><td>Video Card</td></tr>
+<tr><td>5</td><td>Video Card Register/Address</td></tr>
 <tr><td>6,7</td><td>UART</td></tr>
 </table>
 
@@ -134,7 +134,7 @@ Repository Contents
   * vdp.inc - API constants and useful VDP constants to be used by programs calling the driver.
 * **/bin/**  -- Binary files for TMS9X18 video driver.
   * tms9x18_167.bin - Video driver assembled for a 1802-Mini TMS9x18 video card set to Expansion Group 1, Data Port 6 and Register Port 7.
-  * tms9x18_N15.bin - Video driver assembled for a TMS9x18 video card set to Data Port 1, Register Port 5 and no expansion card group in use.
+  * tms9x18_N15.bin - Video driver assembled for a Pico/Elf v2 TMS9x18 video card set to Data Port 1, Register Port 5 and no expansion card group in use.
   
 
 License Information
