@@ -15,13 +15,13 @@ Card Groups and Ports
 <tr><th>Group</th><th>Ports</th><th>Card</th></tr>
 <tr><td rowspan = "2">ALL</td><td>1</td><td>Expander</td></tr>
 <tr><td>4</td><td>Front Panel</td></tr>
-<tr><td rowspan = "4">00</td><td>2</td><td rowspan="2">Disk</td></tr>
+<tr><td rowspan = "5">00</td><td>2</td><td rowspan="2">Disk</td></tr>
 <tr><td>3</td></tr>
 <tr><td>5</td><td>Clock</td></tr>
 <tr><td>6</td><td rowspan="2">UART</td></tr>
 <tr><td>7</td></tr>
 <tr><td rowspan="2">01</td><td>6</td><td>Video Card Data</td></tr>
-<tr><td>01</td><td>7</td><td>Video Card Register</td></tr>
+<tr><td>7</td><td>Video Card Register</td></tr>
 </table>
 
 External Flags
@@ -44,12 +44,13 @@ Ports
 ------
 <table>
 <tr><th>Group</th><th>Ports</th><th>Function</th></tr>
-<tr><td rowspan="5">(None)</td><td>1</td><td>Video Card Data</td></tr>
+<tr><td rowspan="7">(None)</td><td>1</td><td>Video Card Data</td></tr>
 <tr><td>2</td><td rowspan="2">Disk Card</td></tr>
 <tr><td>3</td></tr>
 <tr><td>4</td><td>Data IO</td></tr>
 <tr><td>5</td><td>Video Card Register</td></tr>
-<tr><td>6,7</td><td>UART</td></tr>
+<tr><td>6</td><td>RTC/NVR/UART</td></tr>
+<tr><td>7</td><td>RTC/NVR/UART</td></tr>
 </table>
 
 External Flags
