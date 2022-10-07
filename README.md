@@ -118,8 +118,8 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Size of memory</td><td colspan="2">Pointer to data buffer encoded in the Sun RLE format.</td><td colspan="2">R9 is used internally for the repeated data byte count. Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">VDP Address</td><td colspan="2">-</td><td colspan="2">The data byte read from VDP memory address is returned in D.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
-<tr><td>0x0a</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get calculated index value saved previously.</td></tr>
-<tr><td>0x0b</td><td>V_SET_INDEX</td><td colspan="2">Index Value</td><td>-</td><td>data byte to write</td><td colspan="2">Save calculated index value.</td></tr>
+<tr><td>0x0a</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously.</td></tr>
+<tr><td>0x0b</td><td>V_SET_INDEX</td><td colspan="2">Index Value</td><td>-</td><td>data byte to write</td><td colspan="2">Save index value.</td></tr>
 </table>
 
 TMS9X18 Video Driver API Notes
@@ -131,6 +131,7 @@ TMS9X18 Video Driver API Notes
 * R8 is used for the data buffer pointer, and R8.0 is used for a single data byte to write.  R8 is used internally by V_FILL_SEQ.
 * R9 is used internally by V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
 * The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location one time with SET_ADDRESS and use one of the other functions to write or fill memory repeatedly.
+* The functions V_SET_INDEX and V_GET_INDEX can be used to save a calculated index value, like the offset in VDP memory based on Graphics Text X,Y co-coordinates.
 
 Repository Contents
 -------------------
