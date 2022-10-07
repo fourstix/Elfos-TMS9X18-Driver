@@ -118,8 +118,8 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Size of memory</td><td colspan="2">Pointer to data buffer encoded in the Sun RLE format.</td><td colspan="2">R9 is used internally for the repeated data byte count. Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">VDP Address</td><td colspan="2">-</td><td colspan="2">The data byte read from VDP memory address is returned in D.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
-<tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously.</td></tr>
-<tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Index Value</td><td>-</td><td>data byte to write</td><td colspan="2">Save index value.</td></tr>
+<tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously and return in R7.</td></tr>
+<tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Index value to save.</td><td colspan="2">-</td><td colspan="2">Save index value.</td></tr>
 </table>
 
 TMS9X18 Video Driver API Notes
