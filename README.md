@@ -153,7 +153,7 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
 <tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously and return in R7.</td></tr>
 <tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Index value to save.</td><td colspan="2">-</td><td colspan="2">Save index value.</td></tr>
-<tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high 4 bits gives the major version, and the low 4 bits gives the minor version.</td></tr>
+<tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high nibble is the major version, and the low nibble is the minor version.</td></tr>
 
 </table>
 
@@ -167,7 +167,7 @@ TMS9X18 Video Driver API Notes
 * R9 is used internally by V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
 * The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location one time with SET_ADDRESS and use one of the other functions to write or fill memory repeatedly.
 * The functions V_SET_INDEX and V_GET_INDEX can be used to save a calculated index value, like the offset into VDP memory based on Graphics Text X,Y co-coordinates.
-* The V_GET_VERSION function returns the current driver version in D.  The major version is in the higher 4 bits of this byte and the minor version is in the lower 4 bits. The byte value of 0x12h indicates v1.2 as the current driver version.
+* The V_GET_VERSION function returns the current driver version in D.  The major version is in the higher 4 bits of this byte and the minor version is in the lower 4 bits. The byte value of 0x12 indicates v1.2 as the current driver version.
 
 Repository Contents
 -------------------
