@@ -203,8 +203,8 @@ Other company, product, or services names may be trademarks or services marks of
 
 All libraries used in this code are copyright their respective authors.
 
-The 1802-Mini Hardware
-Copyright (c) 2022-2022 by David Madole
+The 1802-Mini hardware and software
+Copyright (c) 2021-2022 by David Madole
 
 The Pico/Elf v2 1802 microcomputer hardware and software
 Copyright (c) 2004-2022 by Mike Riley.
