@@ -36,7 +36,7 @@ External Flags
 <tr><td>/EF4</td><td>Front Panel</td><td>Input Button</td></tr>
 </table>
 
-The assembled version of this driver is named tms9x18_5167.bin. (Expansion Port 5, Group 1, Data port 6 and Register Port 7.)
+The assembled version of this driver is named tms9x18_5167.bin. (Expansion Port 5, Group 1, Data Port 6 and Register Port 7.)
 
 1802-Mini v4.3 Configuration 
 ----------------------------
@@ -67,7 +67,7 @@ External Flags
 <tr><td>/EF4</td><td>Front Panel</td><td>Input Button</td></tr>
 </table>
 
-The assembled version of this driver is named tms9x18_1167.bin. (Expansion Port 1, Group 1, Data port 6 and Register Port 7.)
+The assembled version of this driver is named tms9x18_1167.bin. (Expansion Port 1, Group 1, Data Port 6 and Register Port 7.)
 
 Pico/Elf v2 Configuration  
 -------------------------
