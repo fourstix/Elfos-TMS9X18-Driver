@@ -7,7 +7,7 @@ These driver was written to run on an [1802-Mini](https://github.com/dmadole/180
 
 1802-Mini v4.4 Configuration 
 -----------------------------
-For this configuration, the code is assembled with the expansion group defined as 1 in tms9x18.inc amd with the EXT_PORT define statement set equal to 5. The binary file tms9x18_5167.bin is assembled to match the v4.4 firmware configuration that is defined by the [1802-Mini ElfOS Install Rom v4.4](https://github.com/dmadole/1802-Mini/blob/master/firmware/1802-mini-elfos-410-install-v4.4.img). In this configuration the TMS9X18 Video card is configured for Expansion Port 5, Group 1, Data Port 6 and Register Port 7.  The binary file for this driver is [tms9x18_5167.bin](https://github.com/fourstix/Elfos-TMS9X18-Driver/blob/b_v1_2/bin/tms9x18_5167.bin).
+For this configuration, the code is assembled with the expansion group defined as 1 in tms9x18.inc amd with the EXT_PORT define statement set equal to 5. The binary file tms9x18_5167.bin is assembled to match the v4.4 firmware configuration that is defined by the [1802-Mini ElfOS Install Rom v4.4](https://github.com/dmadole/1802-Mini/blob/master/firmware/1802-mini-elfos-410-install-v4.4.img). In this configuration the TMS9X18 Video card is configured for Expansion Port 5, Group 1, Data Port 6 and Register Port 7.  The binary file for this driver is [tms9x18_5167.bin](https://github.com/fourstix/Elfos-TMS9X18-Driver/blob/main/bin/tms9x18_5167.bin).
 
 Card Groups and Ports
 -------------------------
@@ -30,7 +30,7 @@ External Flags
 -------------------------
 <table>
 <tr><th>Flag</th><th>Card</th><th>Function</th></tr>
-<tr><td>/EF1</td><td>Pixie Video</td><td>Status</td></tr>
+<tr><td>/EF1</td><td>Pixie Video</td><td>Video Status</td></tr>
 <tr><td>/EF2</td><td>Processor</td><td>Software IO</td></tr>
 <tr><td>/EF3</td><td>(none)</td><td>(unassigned)</td></tr>
 <tr><td>/EF4</td><td>Front Panel</td><td>Input Button</td></tr>
@@ -40,7 +40,7 @@ The assembled version of this driver is named tms9x18_5167.bin. (Expansion Port 
 
 1802-Mini v4.3 Configuration 
 ----------------------------
-For this configuration, the code is assembled with the expansion group defined as 1 in tms9x18.inc and with the EXT_PORT define statement set equal to 1.  The binary file tms9x18_1167.bin is assembled to match the firmware v4.3 configuration that is defined by the [1802-Mini ElfOS Install Rom v4.3](https://github.com/dmadole/1802-Mini/blob/master/firmware/1802-mini-elfos-410-install-v4.3.img). In this configuration the TMS9X18 Video card is configured for Expansion Port 1, Group 1, Data Port 6 and Register Port 7.  The binary file for this driver is [tms9x18_1167.bin]().
+For this configuration, the code is assembled with the expansion group defined as 1 in tms9x18.inc and with the EXT_PORT define statement set equal to 1.  The binary file tms9x18_1167.bin is assembled to match the firmware v4.3 configuration that is defined by the [1802-Mini ElfOS Install Rom v4.3](https://github.com/dmadole/1802-Mini/blob/master/firmware/1802-mini-elfos-410-install-v4.3.img). In this configuration the TMS9X18 Video card is configured for Expansion Port 1, Group 1, Data Port 6 and Register Port 7.  The binary file for this driver is [tms9x18_1167.bin](https://github.com/fourstix/Elfos-TMS9X18-Driver/blob/main/bin/tms9x18_1167.bin).
 
 Card Groups and Ports
 -------------------------
@@ -61,7 +61,7 @@ External Flags
 -------------------------
 <table>
 <tr><th>Flag</th><th>Card</th><th>Function</th></tr>
-<tr><td>/EF1</td><td>Video</td><td>VDP Interrupt</td></tr>
+<tr><td>/EF1</td><td>TMS9X18 Video</td><td>VDP Interrupt</td></tr>
 <tr><td>/EF2</td><td>Processor</td><td>Software IO</td></tr>
 <tr><td>/EF3</td><td>(none)</td><td>(unassigned)</td></tr>
 <tr><td>/EF4</td><td>Front Panel</td><td>Input Button</td></tr>
@@ -71,7 +71,7 @@ The assembled version of this driver is named tms9x18_1167.bin. (Expansion Port 
 
 Pico/Elf v2 Configuration  
 -------------------------
-There is no expansion card in this Pico/Elf v2 Configuration, so there is no expansion group defined in tms9x18.inc when the code is assembled. (The EXT_PORT define statement is commented out.) The binary file tms9x18_N15.bin is assembled to match this platform configuration.
+There is no expansion card in this Pico/Elf v2 Configuration, so there is no expansion group defined in tms9x18.inc when the code is assembled. (The EXT_PORT define statement is commented out.) The binary file [tms9x18_N15.bin](https://github.com/fourstix/Elfos-TMS9X18-Driver/blob/main/bin/tms9x18_N15.bin) is assembled to match this platform configuration.
 
 Ports
 ------
@@ -153,7 +153,7 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
 <tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously and return in R7.</td></tr>
 <tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Index value to save.</td><td colspan="2">-</td><td colspan="2">Save index value.</td></tr>
-<tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high 4 bits is the major version, and the low 4 bits is the minor version.</td></tr>
+<tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high 4 bits gives the major version, and the low 4 bits gives the minor version.</td></tr>
 
 </table>
 
