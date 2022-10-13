@@ -31,9 +31,9 @@
                         ORG     02000h    ; code starts here
                     br  start             ; Jump past build info to code
 
-; Build information
-binfo:              db  10H+8         ; Month, 80H offset means extended info
-                    db  8             ; Day
+; Build information                   
+binfo:              db  10+80h        ; Month, 80H offset means extended info
+                    db  13            ; Day
                     dw  2022          ; Year
 
 ; Current build number
@@ -52,10 +52,10 @@ start:              lda  ra             ; move past any spaces
                     lbnz  bad_arg
                     ldn  ra             ; check for correct argument
                     smi  'u'
-                    bz   unload         ; unload video driver
-                    br   bad_arg        ; anything else is a bad argument
+                    lbz  unload         ; unload video driver
+                    lbr  bad_arg        ; anything else is a bad argument
                       
-check:              LOAD rd, O_VIDEO   ; check if video driver is  loaded 
+check:              LOAD rd, O_VIDEO    ; check if video driver is  loaded 
                     lda  rd             ; get the vector long jump command
                     smi  0C0h           ; if not long jump, assume never loaded
                     lbnz load            
@@ -87,13 +87,8 @@ load:               LOAD rc, END_DRIVER - BEGIN_DRIVER        ; load block size
                     LOAD rc, END_DRIVER - BEGIN_DRIVER  ; load block size to move
                     CALL f_memcpy         ; copy the video driver into memory
 
-                    lbr  done
-                    
-                                   
-bad_arg:            LOAD rf, usage          ; print bad arg message and end
-                    CALL O_MSG
-                    RTN
-                                        
+                    lbr  done             ; we're done!
+                                                                                               
 unload:             LOAD rd, O_VIDEO+1    ; point rd to video driver vector in kernel
                     lda  rd               ; get hi byte
                     phi  rf
@@ -111,12 +106,6 @@ unload:             LOAD rd, O_VIDEO+1    ; point rd to video driver vector in k
                     LOAD rf, removed      ; show message that driver was unloaded
                     CALL O_MSG 
                     RTN                   ; return to Elf/OS
-
-already:            LOAD rf, present      ; show message driver already loaded
-                    CALL O_MSG
-                    LOAD rf, config       ; show configuration
-                    CALL O_MSG
-                    RTN
                     
 done:               LOAD rf, loaded       ; show message that driver is loaded
                     CALL O_MSG 
@@ -128,12 +117,7 @@ done:               LOAD rf, loaded       ; show message that driver is loaded
                     CALL O_MSG
                     RTN                   ; return to Elf/OS 
                       
-fail:               LOAD RF, failed       ; show error message
-                    CALL O_MSG
-                    RTN                   ; return to Elf/OS
-                                   
-
-                    org 2200h             ; make sure to start driver on page boundary
+                    org 2100h             ; make sure to start driver on page boundary
 BEGIN_DRIVER: bz SET_ADDR       ; 0 = Select VDP Address
               smi 01h
               bz SET_GROUP      ; 1 = Set Group
@@ -161,6 +145,10 @@ BEGIN_DRIVER: bz SET_ADDR       ; 0 = Select VDP Address
               bz GET_INDEX      ; 12 = Get user index into VDP memory
               smi 01h
               bz SET_INDEX      ; 13 = Set user index into VDP memory
+              smi 01h
+              bz GET_VERSION    ; 14 = Get the driver version
+              ldi 80h           
+              shl               ; Set DF = 1, D = 0 for unknown request              
               rtn           
 
 ; -------------------------------------------------------------------
@@ -412,7 +400,16 @@ SET_INDEX:  ghi  r3           ; get hi byte from P (r3) for page
             str  r8
             rtn
 
-
+; -----------------------------------------------------------
+;       Get the driver version 
+; Outputs:
+;   D - version byte
+; Version byte: 
+;   High nibble = major number; Low nibble = minor number
+;------------------------------------------------------------
+GET_VERSION:  ldi 012h  ; Current version is v1.2
+              rtn
+            
 ; -----------------------------------------------------------
 ;           User defined Index into VDP memory
 ;------------------------------------------------------------
@@ -423,6 +420,23 @@ userIndex:          dw 0
 VideoMarker:        db 0,'TMS9X18',0  ; string to identify memory block
 END_DRIVER: $
 
+;------ error handling for memory allocation and loading functions
+fail:               LOAD RF, failed       ; show error message
+                    CALL O_MSG
+                    RTN                   ; return to Elf/OS
+                    
+;------ show configuration when the driver is already loaded                                   
+already:            LOAD rf, present      ; show message driver already loaded
+                    CALL O_MSG
+                    LOAD rf, config       ; show configuration
+                    CALL O_MSG
+                    RTN
+                    
+;------ show usage message for an invalid argument
+bad_arg:            LOAD rf, usage          ; print bad arg message and end
+                    CALL O_MSG
+                    RTN
+
 ;------ message strings
 failed:             db   'Error: Video driver was *NOT* loaded.',10,13,0
 loaded:             db   'TMS9x18 Video driver v1.2 loaded.',10,13,0
@@ -432,12 +446,14 @@ present:            db   'TMS9x18 Video driver v1.2 already in memory.',10,13,0
 config:             db   'Data Port: ', 030h + VDP_DAT_P,0
                     db    ' '   
                     db   'Register Port: ',030h + VDP_REG_P
-                    db    ' '
+                    db    10,13,'Expansion: '
 #ifdef EXP_PORT
-                    db   'Group: ',030h + VDP_GROUP
+                    db   'Port ',030h + EXP_PORT
+                    db    ', '
+                    db   'Group ',030h + VDP_GROUP
                     db   10,13,0    ; end for above string
 #else 
-                    db   '(No Group)',10,13,0
+                    db   '(None)',10,13,0
 #endif
 crlf:               db   10,13,0                 
 ;------ define end of execution block
