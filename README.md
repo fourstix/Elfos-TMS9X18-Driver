@@ -129,8 +129,8 @@ TMS9X18 Video Driver API
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Write a data buffer encoded in the Sun RLE format to the VDP memory.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">Get a data byte from a given VDP address.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">Set a data byte at a given VDP address.</td></tr>
-<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">Get user info values.</td></tr>
-<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">Set user info values.</td></tr>
+<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">Get user defined data values from memory.</td></tr>
+<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">Set user defined data values in memory.</td></tr>
 <tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2">Get the driver version as a byte.</td></tr>
 </table>
 
