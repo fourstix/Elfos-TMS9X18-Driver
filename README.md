@@ -165,6 +165,7 @@ TMS9X18 Video Driver API Notes
 * R7 is used to return the Index value saved previously.
 * R8 is used for the data buffer pointer, and R8.0 is used for a single data byte to write.  R8 is used internally by V_FILL_SEQ.
 * R9 is used internally by V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
+* R9 is used internally by V_SET_INFO and V_GET_INFO as a memory pointer. 
 * The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location one time with SET_ADDRESS and use one of the other functions to write or fill memory repeatedly.
 * The functions V_SET_INFO and V_GET_INFO can be used to save and retrieve user program values, like the offset into VDP memory or color map values, as data words in the driver memory. These functions save and retrieve the word values in R7 and R8.
 * The V_GET_VERSION function returns the current driver version in D.  The major version is in the higher 4 bits of this byte and the minor version is in the lower 4 bits. The byte value of 0x13 indicates v1.3 as the current driver version.
