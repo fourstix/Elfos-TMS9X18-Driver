@@ -151,8 +151,8 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Size of memory</td><td colspan="2">Pointer to data buffer encoded in the Sun RLE format.</td><td colspan="2">R9 is used internally for the repeated data byte count. Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">VDP Address</td><td colspan="2">-</td><td colspan="2">The data byte read from VDP memory address is returned in D.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
-<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">User Defined Word Value (Returned in R7)</td><td colspan="2">User Defined Word Value (Returned in R8)</td><td colspan="2">Get user defined word values saved previously in memory and return in R7 and R8.</td></tr>
-<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">Save user defined word values in R7 and R8 to memory.</td></tr>
+<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">User Defined Word Value (Returned in R7)</td><td colspan="2">User Defined Word Value (Returned in R8)</td><td colspan="2">R9 is used internally as a memory pointer. Get user defined word values saved previously in memory and return in R7 and R8.</td></tr>
+<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">R9 is used internally as a memory pointer. Save user defined word values in R7 and R8 to memory.</td></tr>
 <tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high nibble is the major version, and the low nibble is the minor version.</td></tr>
 
 </table>
