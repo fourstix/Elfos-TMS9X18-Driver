@@ -33,11 +33,11 @@
 
 ; Build information                   
 binfo:              db  10+80h        ; Month, 80H offset means extended info
-                    db  13            ; Day
+                    db  20            ; Day
                     dw  2022          ; Year
 
 ; Current build number
-build:              dw  2
+build:              dw  3
 
 ; Must end with 0 (null)
 copyright:          db      'Copyright (c) 2022 by Gaston Williams',0
@@ -142,9 +142,9 @@ BEGIN_DRIVER: bz SET_ADDR       ; 0 = Select VDP Address
               smi 01h
               bz SET_BYTE       ; 11 = Set data byte at a VDP address
               smi 01h
-              bz GET_INDEX      ; 12 = Get user index into VDP memory
+              bz GET_INFO      ; 12 = Get user data from VDP memory
               smi 01h
-              bz SET_INDEX      ; 13 = Set user index into VDP memory
+              bz SET_INFO      ; 13 = Set user data into VDP memory
               smi 01h
               bz GET_VERSION    ; 14 = Get the driver version
               ldi 80h           
@@ -366,38 +366,50 @@ SET_BYTE:   glo  r7          ; r7 has address data
             rtn
 
 ; -----------------------------------------------------------
-;       Get user index into VDP memory 
+;       Get user data values into scratch registers 
 ; Outputs:
-;   R7 - user index value
+;   R7 - user data value
+;   R8 - user data value
 ; Uses: 
-;   R8 - pointer to user index value 
+;   R9 - pointer to user index value 
 ;------------------------------------------------------------
-GET_INDEX:  ghi  r3           ; get hi byte from P (r3) for page
-            phi  r8           ; point r8 to index Buffer
-            ldi  userIndex.0  ; get lo byte of buffer
-            plo  r8           ; r8 now points to index buffer
-            lda  r8           ; get hi byte of index 
-            phi  r7           ; store in r7
-            ldn  r8           ; get lo byte of index
-            plo  r7           ; r7 now has index value
+GET_INFO:   ghi  r3           ; get hi byte from P (r3) for page
+            phi  r9           ; point r9 to index Buffer
+            ldi  userData.0  ; get lo byte of buffer
+            plo  r9           ; r9 now points to user data buffer
+            lda  r9           ; get hi byte of first value 
+            phi  r7           ; store first value in r7
+            lda  r9           ; get lo byte of first value
+            plo  r7           ; r7 now has first value
+            lda  r9           ; get hi byte of second value 
+            phi  r8           ; store second value in r9
+            ldn  r9           ; get lo byte of second value
+            plo  r8           ; r8 now has second value
             rtn            
 
 ; -----------------------------------------------------------
-;       Set user index into VDP memory 
+;       Save user data values in scratch registers
 ; Inputs:
-;   R7 - user index value to set
+;   R7 - user word value to set
+;   R8 - user word value to set
 ; Uses: 
-;   R8 - pointer to user index value 
+;   R9 - pointer to user data values 
 ;------------------------------------------------------------
-SET_INDEX:  ghi  r3           ; get hi byte from P (r3) for page
-            phi  r8           ; point r8 to index Buffer
-            ldi  userIndex.0  ; get lo byte of buffer
-            plo  r8           ; r8 now points to index buffer
-            ghi  r7           ; move hi byte to index
-            str  r8
-            inc  r8
+SET_INFO:   ghi  r3           ; get hi byte from P (r3) for page
+            phi  r9           ; point r9 to index Buffer
+            ldi  userData.0  ; get lo byte of buffer
+            plo  r9           ; r9 now points to index buffer
+            ghi  r7           ; save r7 in memory
+            str  r9
+            inc  r9
             glo  r7    
-            str  r8
+            str  r9
+            inc  r9
+            ghi  r8           ; save r8 in memory
+            str  r9
+            inc  r9
+            glo  r8    
+            str  r9
             rtn
 
 ; -----------------------------------------------------------
@@ -407,13 +419,13 @@ SET_INDEX:  ghi  r3           ; get hi byte from P (r3) for page
 ; Version byte: 
 ;   High nibble = major number; Low nibble = minor number
 ;------------------------------------------------------------
-GET_VERSION:  ldi 012h  ; Current version is v1.2
+GET_VERSION:  ldi 013h  ; Current version is v1.3
               rtn
             
 ; -----------------------------------------------------------
-;           User defined Index into VDP memory
+;           User defined values in driver memory
 ;------------------------------------------------------------
-userIndex:          dw 0                            
+userData:          dw 0, 0                            
 ; -----------------------------------------------------------
 ;           ID String for memory block
 ;------------------------------------------------------------
@@ -439,10 +451,10 @@ bad_arg:            LOAD rf, usage          ; print bad arg message and end
 
 ;------ message strings
 failed:             db   'Error: Video driver was *NOT* loaded.',10,13,0
-loaded:             db   'TMS9x18 Video driver v1.2 loaded.',10,13,0
+loaded:             db   'TMS9x18 Video driver v1.3 loaded.',10,13,0
 usage:              db   'Loads TMS9X18 video driver. Use -u option to unload the video driver.',10,13,0 
 removed:            db   'Video driver unloaded.',10,13,0
-present:            db   'TMS9x18 Video driver v1.2 already in memory.',10,13,0
+present:            db   'TMS9x18 Video driver v1.3 already in memory.',10,13,0
 config:             db   'Data Port: ', 030h + VDP_DAT_P,0
                     db    ' '   
                     db   'Register Port: ',030h + VDP_REG_P

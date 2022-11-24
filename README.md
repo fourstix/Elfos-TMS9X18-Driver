@@ -1,9 +1,9 @@
 # Elfos-TMS9X18-Driver
-TMS9X18 Video Display Processor driver for Elf/OS is an Elf/OS program for the [1802-Mini TMS9x18 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) by David Madole and for Pico/Elf v2 TMS9118/9918 Color Video card. Information about the Pico/Elf v2 and the TMS9118/9918 Color Board  is available at [elf-emulation.com](http://www.elf-emulation.com/hardware.html) by Mike Riley.  This driver program was assembled into an 1802 binary file using the [Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
+TMS9X18 Video Display Processor driver for Elf/OS is an Elf/OS program for the [1802-Mini TMS9x18 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) by David Madole and for Pico/Elf v2 by Mike Riley with a [TMS9118/9918 Color Board](https://web.archive.org/web/20220918120827/http://www.elf-emulation.com/hardware.html) or a [Pico/Elf TMS9918 Video IO card](https://github.com/fourstix/PicoElfTMS9118VIOCard). This driver program was assembled into an 1802 binary file using the [Asm/02 1802 Assembler](https://github.com/rileym65/Asm-02) by Mike Riley.
 
 Platform  
 --------
-These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  The driver will also run with a [Pico/Elf v2](http://www.elf-emulation.com/hardware.html) and the [TMS9118/9918 Color Board](http://www.elf-emulation.com/hardware.html).  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform. Two versions of the driver are available as binaries to match the configurations listed below.  A lot of information and software for the 1802-Mini and Pico/Elf v2 can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
+These driver was written to run on an [1802-Mini](https://github.com/dmadole/1802-Mini) with the [1802-Mini TMS9918 Video Card](https://github.com/dmadole/1802-Mini-9918-Video) created by David Madole.  The driver will also run with a [Pico/Elf v2](https://web.archive.org/web/20220918120827/http://www.elf-emulation.com/hardware.html) and the [Pico/Elf TMS9918 Video IO card](https://github.com/fourstix/PicoElfTMS9118VIOCard) or with a [TMS9118/9918 Color Board](https://web.archive.org/web/20220918120827/http://www.elf-emulation.com/hardware.html).  In order to run properly, the driver source file tms9x18.asm should be assembled with the constants in the /include/tsm9x18.inc file to set to match Data Port, Register Port and Expansion Group settings on the video card hardware platform. Two versions of the driver are available as binaries to match the configurations listed below.  A lot of information and software for the 1802-Mini and Pico/Elf v2 can be found in the [COSMAC ELF Group](https://groups.io/g/cosmacelf) at groups.io.
 
 1802-Mini v4.4 Configuration 
 -----------------------------
@@ -129,8 +129,8 @@ TMS9X18 Video Driver API
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Write a data buffer encoded in the Sun RLE format to the VDP memory.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">Get a data byte from a given VDP address.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">Set a data byte at a given VDP address.</td></tr>
-<tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Get index value.</td></tr>
-<tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Set index value.</td></tr>
+<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">Get user defined data values from memory.</td></tr>
+<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">Set user defined data values in memory.</td></tr>
 <tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2">Get the driver version as a byte.</td></tr>
 </table>
 
@@ -151,8 +151,8 @@ TMS9X18 Video Driver API Parameters
 <tr><td>0x09</td><td>V_WRITE_RLE</td><td colspan="2">Size of memory</td><td colspan="2">Pointer to data buffer encoded in the Sun RLE format.</td><td colspan="2">R9 is used internally for the repeated data byte count. Set the memory address using V_SET_ADDRESS before calling this function.</td></tr>
 <tr><td>0x0a</td><td>V_GET_BYTE</td><td colspan="2">VDP Address</td><td colspan="2">-</td><td colspan="2">The data byte read from VDP memory address is returned in D.</td></tr>
 <tr><td>0x0b</td><td>V_SET_BYTE</td><td colspan="2">VDP Address</td><td>-</td><td>data byte to write</td><td colspan="2">Writing data this way is usually slower than the other functions.</td></tr>
-<tr><td>0x0c</td><td>V_GET_INDEX</td><td colspan="2">Index Value</td><td colspan="2">-</td><td colspan="2">Get index value saved previously and return in R7.</td></tr>
-<tr><td>0x0d</td><td>V_SET_INDEX</td><td colspan="2">Index value to save.</td><td colspan="2">-</td><td colspan="2">Save index value.</td></tr>
+<tr><td>0x0c</td><td>V_GET_INFO</td><td colspan="2">User Defined Word Value (Returned in R7)</td><td colspan="2">User Defined Word Value (Returned in R8)</td><td colspan="2">R9 is used internally as a memory pointer. Get user defined word values saved previously in memory and return in R7 and R8.</td></tr>
+<tr><td>0x0d</td><td>V_SET_INFO</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">User Defined Word Value to save.</td><td colspan="2">R9 is used internally as a memory pointer. Save user defined word values in R7 and R8 to memory.</td></tr>
 <tr><td>0x0e</td><td>V_GET_VERSION</td><td colspan="2"> - </td><td colspan="2"> - </td><td colspan="2"> The driver version is returned in D. The high nibble is the major version, and the low nibble is the minor version.</td></tr>
 
 </table>
@@ -165,9 +165,10 @@ TMS9X18 Video Driver API Notes
 * R7 is used to return the Index value saved previously.
 * R8 is used for the data buffer pointer, and R8.0 is used for a single data byte to write.  R8 is used internally by V_FILL_SEQ.
 * R9 is used internally by V_WRITE_RLE for the repeated byte count when uncompressing Sun RLE encoded data.
+* R9 is used internally by V_SET_INFO and V_GET_INFO as a memory pointer. 
 * The functions V_GET_BYTE and V_SET_BYTE always set the memory address and access a single byte.  If possible, it is usually faster to set an address for the memory location one time with SET_ADDRESS and use one of the other functions to write or fill memory repeatedly.
-* The functions V_SET_INDEX and V_GET_INDEX can be used to save a calculated index value, like the offset into VDP memory based on Graphics Text X,Y co-coordinates.
-* The V_GET_VERSION function returns the current driver version in D.  The major version is in the higher 4 bits of this byte and the minor version is in the lower 4 bits. The byte value of 0x12 indicates v1.2 as the current driver version.
+* The functions V_SET_INFO and V_GET_INFO can be used to save and retrieve user program values, like the offset into VDP memory or color map values, as data words in the driver memory. These functions save and retrieve the word values in R7 and R8.
+* The V_GET_VERSION function returns the current driver version in D.  The major version is in the higher 4 bits of this byte and the minor version is in the lower 4 bits. The byte value of 0x13 indicates v1.3 as the current driver version.
 
 Repository Contents
 -------------------
@@ -211,6 +212,9 @@ Copyright (c) 2004-2022 by Mike Riley.
 
 Elf/OS and RcAsm Software
 Copyright (c) 2004-2022 by Mike Riley.
+
+The Pico/Elf Video IO Card hardware
+Copyright (c) 2022 by Gaston Williams
 
 Many thanks to the original authors for making their designs and code available as open source.
 
