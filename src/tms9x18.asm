@@ -32,12 +32,12 @@
                     br  start             ; Jump past build info to code
 
 ; Build information                   
-binfo:              db  10+80h        ; Month, 80H offset means extended info
-                    db  20            ; Day
+binfo:              db  12+80h        ; Month, 80H offset means extended info
+                    db  22            ; Day
                     dw  2022          ; Year
 
 ; Current build number
-build:              dw  3
+build:              dw  4
 
 ; Must end with 0 (null)
 copyright:          db      'Copyright (c) 2022 by Gaston Williams',0
@@ -84,7 +84,8 @@ load:               LOAD rc, END_DRIVER - BEGIN_DRIVER        ; load block size
                                         
                     COPY rf, rd           ; move destination in rf into rd               
                     LOAD rf, BEGIN_DRIVER ; rf points to source driver code
-                    LOAD rc, END_DRIVER - BEGIN_DRIVER  ; load block size to move
+                    ; RC already has the count of bytes allocated
+                    ; LOAD rc, END_DRIVER - BEGIN_DRIVER  ; load block size to move
                     CALL f_memcpy         ; copy the video driver into memory
 
                     lbr  done             ; we're done!
@@ -430,7 +431,7 @@ userData:          dw 0, 0
 ;           ID String for memory block
 ;------------------------------------------------------------
 VideoMarker:        db 0,'TMS9X18',0  ; string to identify memory block
-END_DRIVER: $
+END_DRIVER:         db 0, 0, 0, 0     ; four bytes for padding at end
 
 ;------ error handling for memory allocation and loading functions
 fail:               LOAD RF, failed       ; show error message
