@@ -13,18 +13,49 @@ Card Groups and Ports
 -------------------------
 <table>
 <tr><th>Group</th><th>Ports</th><th>Card</th></tr>
-<tr><td rowspan = "3">ALL</td><td>1</td><td>Pixie Video</td></tr>
-<tr><td>4</td><td>Front Panel</td></tr>
-<tr><td>5</td><td>Expander</td></tr>
-<tr><td rowspan = "4">00</td><td>2</td><td rowspan="2">Disk</td></tr>
+<tr><td rowspan = "3">ALL</td><td>1</td><td>
+
+[Pixie Video](https://groups.io/g/cosmacelf/message/39132)
+
+</td></tr>
+<tr><td>4</td><td>
+
+[Front Panel](https://github.com/dmadole/1802-Mini-Front-Panel)
+
+</td></tr>
+<tr><td>5</td><td>
+
+[Expander](https://github.com/dmadole/1802-Mini-Expander-RTC)
+
+</td></tr>
+<tr><td rowspan = "4">00</td><td>2</td><td rowspan="2">
+
+[Compact Flash](https://github.com/dmadole/1802-Mini-Compact-Flash)
+
+</td></tr>
 <tr><td>3</td></tr>
-<tr><td>6</td><td rowspan="2">UART</td></tr>
+<tr><td>6</td><td rowspan="2">
+
+[UART](https://github.com/dmadole/1802-Mini-1854-Serial)
+
+</td></tr>
 <tr><td>7</td></tr>
-<tr><td rowspan="4">01</td><td>2</td><td>VIP/ST2 Keypad</td></tr>
-<tr><td>3</td><td>Clock</td></tr>
-<tr><td>6</td><td rowspan="2">TMS9X19 Video</td></tr>
+<tr><td rowspan="3">01</td><td>3</td><td>
+
+[Real Time Clock](https://github.com/dmadole/1802-Mini-Expander-RTC)
+
+</td></tr>
+<tr><td>6</td><td rowspan="2">
+
+[TMS9X19 Video](https://github.com/dmadole/1802-Mini-9918-Video)
+
+</td></tr>
 <tr><td>7</td></tr>
-<tr><td rowspan="2">02</td><td>2</td><td rowspan="2">SPI/MicroSD</td></tr>
+<tr><td rowspan="2">02</td><td>2</td><td rowspan="2">
+
+[SPI/MicroSD](https://github.com/arhefner/1802-Mini-SPI-DMA)
+
+</td></tr>
 <tr><td>3</td></tr>
 </table>
 
@@ -48,14 +79,37 @@ Card Groups and Ports
 -------------------------
 <table>
 <tr><th>Group</th><th>Ports</th><th>Card</th></tr>
-<tr><td rowspan = "2">ALL</td><td>1</td><td>Expander</td></tr>
-<tr><td>4</td><td>Front Panel</td></tr>
-<tr><td rowspan = "5">00</td><td>2</td><td rowspan="2">Disk</td></tr>
+<tr><td rowspan = "2">ALL</td><td>1</td><td>
+
+[Expander](https://github.com/dmadole/1802-Mini-Expander-RTC)
+
+</td></tr>
+<tr><td>4</td><td>
+
+[Front Panel](https://github.com/dmadole/1802-Mini-Front-Panel)
+</td></tr>
+<tr><td rowspan = "5">00</td><td>2</td><td rowspan="2">
+
+[Compact Flash](https://github.com/dmadole/1802-Mini-Compact-Flash)
+
+</td></tr>
 <tr><td>3</td></tr>
-<tr><td>5</td><td>Clock</td></tr>
-<tr><td>6</td><td rowspan="2">UART</td></tr>
+<tr><td>5</td><td>
+
+[Real Time Clock](https://github.com/dmadole/1802-Mini-Expander-RTC)
+
+</td></tr>
+<tr><td>6</td><td rowspan="2">
+
+[UART](https://github.com/dmadole/1802-Mini-1854-Serial)
+
+</td></tr>
 <tr><td>7</td></tr>
-<tr><td rowspan="2">01</td><td>6</td><td rowspan="2">TMS9X19 Video</td></tr>
+<tr><td rowspan="2">01</td><td>6</td><td rowspan="2">
+
+[TMS9X19 Video](https://github.com/dmadole/1802-Mini-9918-Video)
+
+</td></tr>
 <tr><td>7</tr>
 </table>
 
