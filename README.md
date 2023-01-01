@@ -24,6 +24,8 @@ Card Groups and Ports
 <tr><td>3</td><td>Clock</td></tr>
 <tr><td>6</td><td rowspan="2">TMS9X19 Video</td></tr>
 <tr><td>7</td></tr>
+<tr><td rowspan="2">02</td><td>2</td><td rowspan="2">SPI/MicroSD</td></tr>
+<tr><td>3</td></tr>
 </table>
 
 External Flags
