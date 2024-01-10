@@ -16,8 +16,18 @@
 #include    include/bios.inc
 #include    include/kernel.inc
 #include    include/ops.inc
-#include    include/tms9x18.inc
 
+#ifdef      MINI1
+#include    include/tms9x18_1167.inc
+#endif
+
+#ifdef      MINI5
+#include    include/tms9x18_5167.inc
+#endif
+
+#ifdef      PEV2
+#include    include/tms9x18_N15.inc
+#endif
 
 ; ************************************************************
 ; This block generates the Execution header
@@ -32,15 +42,15 @@
                     br  start             ; Jump past build info to code
 
 ; Build information                   
-binfo:              db  12+80h        ; Month, 80H offset means extended info
-                    db  22            ; Day
-                    dw  2022          ; Year
+binfo:              db  01+80h        ; Month, 80H offset means extended info
+                    db  01            ; Day
+                    dw  2024          ; Year
 
 ; Current build number
-build:              dw  4
+build:              dw  5
 
 ; Must end with 0 (null)
-copyright:          db      'Copyright (c) 2022 by Gaston Williams',0
+copyright:          db      'Copyright (c) 2024 by Gaston Williams',0
                   
 start:              lda  ra             ; move past any spaces
                     smi  ' '
@@ -60,10 +70,10 @@ check:              LOAD rd, O_VIDEO    ; check if video driver is  loaded
                     smi  0C0h           ; if not long jump, assume never loaded
                     lbnz load            
                     lda  rd             ; get hi byte of address
-                    smi  05h            ; check to see if points to Kernel return
+                    smi  03h            ; check to see if points to Kernel return
                     lbnz already        ; if not, assume driver is already loaded
                     ldn  rd             ; get the lo byte of address
-                    smi  01bh           ; check to see if points to kernel return 
+                    smi  07eh           ; check to see if points to kernel return 
                     lbnz already        ; if not, assume driver is already loaded                    
                                       
 load:               LOAD rc, END_DRIVER - BEGIN_DRIVER        ; load block size
@@ -99,10 +109,10 @@ unload:             LOAD rd, O_VIDEO+1    ; point rd to video driver vector in k
                     
                                           ; Dealloc always works
                     LOAD rd, O_VIDEO+1   ; point rd back to hi byte of address
-                    ldi  05h              ; point O_VIDEO to kernel return at 051Bh
+                    ldi  03h              ; point O_VIDEO to kernel return at 051Bh
                     str  rd
                     inc  rd               ; advance to lo byte of address
-                    ldi  01bh             ; point O_VIDEO to kernel return at 051Bh
+                    ldi  7eh             ; point O_VIDEO to kernel return at 051Bh
                     str  rd
                     LOAD rf, removed      ; show message that driver was unloaded
                     CALL O_MSG 
@@ -420,7 +430,7 @@ SET_INFO:   ghi  r3           ; get hi byte from P (r3) for page
 ; Version byte: 
 ;   High nibble = major number; Low nibble = minor number
 ;------------------------------------------------------------
-GET_VERSION:  ldi 013h  ; Current version is v1.3
+GET_VERSION:  ldi 014h  ; Current version is v1.4
               rtn
             
 ; -----------------------------------------------------------
@@ -452,10 +462,10 @@ bad_arg:            LOAD rf, usage          ; print bad arg message and end
 
 ;------ message strings
 failed:             db   'Error: Video driver was *NOT* loaded.',10,13,0
-loaded:             db   'TMS9x18 Video driver v1.3 loaded.',10,13,0
+loaded:             db   'TMS9x18 Video driver v1.4 loaded.',10,13,0
 usage:              db   'Loads TMS9X18 video driver. Use -u option to unload the video driver.',10,13,0 
 removed:            db   'Video driver unloaded.',10,13,0
-present:            db   'TMS9x18 Video driver v1.3 already in memory.',10,13,0
+present:            db   'TMS9x18 Video driver v1.4 already in memory.',10,13,0
 config:             db   'Data Port: ', 030h + VDP_DAT_P,0
                     db    ' '   
                     db   'Register Port: ',030h + VDP_REG_P
