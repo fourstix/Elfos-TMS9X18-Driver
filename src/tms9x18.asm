@@ -109,10 +109,10 @@ unload:             LOAD rd, O_VIDEO+1    ; point rd to video driver vector in k
                     
                                           ; Dealloc always works
                     LOAD rd, O_VIDEO+1   ; point rd back to hi byte of address
-                    ldi  03h              ; point O_VIDEO to kernel return at 051Bh
+                    ldi  03h              ; point O_VIDEO to kernel return at 037eh
                     str  rd
                     inc  rd               ; advance to lo byte of address
-                    ldi  7eh             ; point O_VIDEO to kernel return at 051Bh
+                    ldi  07eh             ; point O_VIDEO to kernel return at 037eh
                     str  rd
                     LOAD rf, removed      ; show message that driver was unloaded
                     CALL O_MSG 
