@@ -42,12 +42,12 @@
                     br  start             ; Jump past build info to code
 
 ; Build information                   
-binfo:              db  01+80h        ; Month, 80H offset means extended info
-                    db  01            ; Day
+binfo:              db  02+80h        ; Month, 80H offset means extended info
+                    db  10            ; Day
                     dw  2024          ; Year
 
 ; Current build number
-build:              dw  5
+build:              dw  6
 
 ; Must end with 0 (null)
 copyright:          db      'Copyright (c) 2024 by Gaston Williams',0
@@ -441,7 +441,9 @@ userData:          dw 0, 0
 ;           ID String for memory block
 ;------------------------------------------------------------
 VideoMarker:        db 0,'TMS9X18',0  ; string to identify memory block
-END_DRIVER:         db 0, 0, 0, 0     ; four bytes for padding at end
+END_DRIVER:         db 0, 0, 0, 0     ; twelve bytes for padding at end
+                    db 0, 0, 0, 0     ; in case rounded up to entire page
+                    db 0, 0, 0, 0     
 
 ;------ error handling for memory allocation and loading functions
 fail:               LOAD RF, failed       ; show error message
